@@ -7,7 +7,7 @@ def word_count(str, dic):
     counts = dic
     if str is None: 
         return counts
-    words = str.split()
+    words = str.upper().replace(';', ' ').replace('(', ' ').replace(')', ' ').replace(',', ' ').replace('/', ' ').replace('?', ' ').replace('-', ' ').replace('.', ' ').replace(':', ' ').replace('#', ' ').split()
     if counts is None:
         counts = dict()
     for word in words:
@@ -25,8 +25,8 @@ with open('final-3.json', encoding='utf8') as json_file:
     for line in data:
         #print(dic)
         #print(line['titulo'])
-        dic = word_count(line['nome da vaga'], dic)
+        dic = word_count(line['descrição'], dic)
     
 ordered = dict(sorted(dic.items(), key=lambda item: item[1], reverse=True))
-with open('countNomeVaga.json', 'w', encoding='utf8') as json_file:
+with open('countDescricao.json', 'w', encoding='utf8') as json_file:
     json.dump(ordered, json_file, ensure_ascii=False)
